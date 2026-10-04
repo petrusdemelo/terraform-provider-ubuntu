@@ -33,3 +33,26 @@ jobs:
         with:
           go-version-file: go.mod
       - run: make lint
+
+  acceptance:
+    name: acceptance (ubuntu ${{ matrix.ubuntu }}, terraform ${{ matrix.terraform }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        ubuntu: ["22.04", "24.04"]
+        terraform: ["1.8.*", "latest"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: ${{ matrix.terraform }}
+          terraform_wrapper: false
+      - run: make testenv-up UBUNTU_VERSION=${{ matrix.ubuntu }}
+      - run: make testacc
+      - if: always()
+        run: make testenv-down
