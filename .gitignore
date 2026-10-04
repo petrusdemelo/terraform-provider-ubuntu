@@ -1,0 +1,4 @@
+/terraform-provider-ubuntu
+/dist/
+/testdata/.ssh/
+coverage.out
