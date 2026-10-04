@@ -6,3 +6,10 @@ All notable changes to this project are documented here. The format follows
 contain breaking changes; they are listed under **Breaking changes**.
 
 ## Unreleased
+
+### Added
+
+- Provider configuration: `ssh` block (key or password authentication, pinned
+  host key) and `default_target` block. Connection values that are unknown at
+  plan time are rejected.
+- `ubuntu_os_release` data source.

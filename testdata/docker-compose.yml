@@ -1,0 +1,9 @@
+services:
+  ubuntu:
+    build:
+      context: .
+      args:
+        UBUNTU_VERSION: ${UBUNTU_VERSION:-24.04}
+        PUBLIC_KEY: ${PUBLIC_KEY:?set PUBLIC_KEY, or run make testenv-up}
+    ports:
+      - "${UBUNTU_TEST_PORT:-22022}:22"
